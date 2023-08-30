@@ -68,6 +68,7 @@ function controlRequired(CODE, required = true) {
 function onCardInitialize() {
   setInitialRequired();
   CreateAccountTask();
+  VerifyRequestTask();
 }
 
 //Скрипт 3. Неможливість внесення змін в поля карточки
@@ -208,4 +209,49 @@ function setContractorOnCardSave(portalData) {
 
 function onBeforeCardSave() {
   setContractorOnCardSave(EdocsApi.getInExtAttributes(CurrentDocument.id.toString()));
+}
+
+function VerifyRequestTask() {
+  if (CurrentDocument.inExtId) {
+    const stateTask = EdocsApi.getCaseTaskDataByCode("RequestTask").state;
+    if (stateTask == "assigned" || stateTask == "inProgress" || stateTask == "completed") {
+      controlRequired("Contractor");
+      controlRequired("ContractorId");
+      controlRequired("ContractorFullName");
+      controlRequired("ContractorShortName");
+      controlRequired("ContractorEDRPOU");
+      controlRequired("ContractorIPN");
+      controlRequired("VATStatusContractor");
+      controlRequired("LegaladdressContractor");
+      controlRequired("PostaddressContractor");
+      controlRequired("BankContractor");
+      controlRequired("MFIContractor");
+      controlRequired("AccountContractor");
+      controlRequired("TelephoneContractor");
+      controlRequired("EmailContractor");
+      controlRequired("ContractorAgent");
+      controlRequired("ContractorAgentPosition");
+      controlRequired("ActsOnBasisContractor");
+      controlRequired("ContractorAgentid");
+    } else {
+      controlRequired("Contractor", false);
+      controlRequired("ContractorId", false);
+      controlRequired("ContractorFullName", false);
+      controlRequired("ContractorShortName", false);
+      controlRequired("ContractorEDRPOU", false);
+      controlRequired("ContractorIPN", false);
+      controlRequired("VATStatusContractor", false);
+      controlRequired("LegaladdressContractor", false);
+      controlRequired("PostaddressContractor", false);
+      controlRequired("BankContractor", false);
+      controlRequired("MFIContractor", false);
+      controlRequired("AccountContractor", false);
+      controlRequired("TelephoneContractor", false);
+      controlRequired("EmailContractor", false);
+      controlRequired("ContractorAgent", false);
+      controlRequired("ContractorAgentPosition", false);
+      controlRequired("ActsOnBasisContractor", false);
+      controlRequired("ContractorAgentid", false);
+    }
+  }
 }
