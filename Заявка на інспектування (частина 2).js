@@ -88,7 +88,7 @@ function VerifyRequestTask() {
   }
 }
 
-function controlRequired(CODE, required = true) {
+function setControlRequired(CODE, required = true) {
   const control = EdocsApi.getControlProperties(CODE);
   control.required = required;
   EdocsApi.setControlProperties(control);
